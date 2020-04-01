@@ -1,30 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 public class MainChar : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float spd;
-    CharCrt Input;
     Vector2 move;
-    void Awake()
+    public float dashVel;
+    private float dashT;
+    public float dashDur;
+    private bool dash = true;
+    private float dashChg;
+    public float dashC;
+    private float tmpSpd;
+    void Start()
     {
-        Input = new CharCrt();
-        Input.Control.move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        dashT = dashDur + 1;
+        tmpSpd = spd;
     }
     void Update()
     {
-        rb.MovePosition(rb.position + move * spd * Time.deltaTime);
+        move.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        dashChg += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space) && dash && dashChg >= dashC)
+        {
+            spd = tmpSpd * dashVel;
+            dashChg = 0.0f;
+        }
+        if(spd<tmpSpd)
+            tmpSpd -= Time.deltaTime;
+        //Debug.Log();
     }
-    void OnEnable()
+
+    void FixedUpdate()
     {
-        Input.Enable();
-    }
-    void OnDisable()
-    {
-        Input.Disable();
+        if (Input.GetAxisRaw("Horizontal") > 0 && Input.GetAxisRaw("Vertical") > 0)//movimiento
+            rb.MovePosition(rb.position + move.normalized * spd * Time.fixedDeltaTime);
+        else
+            rb.MovePosition(rb.position + move * spd * Time.fixedDeltaTime);
+        if (dashT > dashDur) //Si el tiempo con Dash se vuelve mayor a la duración..
+        {
+            dashT = 0; //El tiempo de dash se queda en 0
+            dash = false;
+            spd = tmpSpd; //Velocidad base
+        }
+        if (dashT < dashDur) //Si el tiempo con Dash es menor a la duración..
+            dash = true;
+        dashT += Time.fixedDeltaTime*20f; //Se va aumentando el tiempo dasheando según el tiempo
     }
 }
