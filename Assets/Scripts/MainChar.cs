@@ -1,19 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class MainChar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Rigidbody2D rb;
+    public float spd;
+    void FixedUpdate()
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
