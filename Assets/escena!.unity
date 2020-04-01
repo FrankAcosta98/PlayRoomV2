@@ -218,7 +218,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 273410003}
-  spd: 10
+  spd: 5
+  dashVel: 5
+  dashDur: 3
+  dashC: 2
 --- !u!50 &273410003
 Rigidbody2D:
   serializedVersion: 4

@@ -15,6 +15,8 @@ public class MainChar : MonoBehaviour
     private float dashChg;
     public float dashC;
     private float tmpSpd;
+    private float slow;
+
     void Start()
     {
         dashT = dashDur + 1;
@@ -30,7 +32,7 @@ public class MainChar : MonoBehaviour
             dashChg = 0.0f;
         }
         if(spd<tmpSpd)
-            tmpSpd -= Time.deltaTime;
+            tmpSpd -= slow;
         //Debug.Log();
     }
 
@@ -46,8 +48,12 @@ public class MainChar : MonoBehaviour
             dash = false;
             spd = tmpSpd; //Velocidad base
         }
-        if (dashT < dashDur) //Si el tiempo con Dash es menor a la duración..
-            dash = true;
-        dashT += Time.fixedDeltaTime*20f; //Se va aumentando el tiempo dasheando según el tiempo
+        if (dashT < dashDur) {  //Si el tiempo con Dash es menor a la duración..
+        dash = true;
+            slow = 1f;
+        }
+    dashT += Time.fixedDeltaTime;
+    if(spd<tmpSpd)
+            slow += Time.smoothDeltaTime;
     }
 }
