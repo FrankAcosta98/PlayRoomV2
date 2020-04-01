@@ -9,7 +9,16 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
-
+/[Pp]ackages/
+*.vscode
+/Tiny RPG Forest/
+/Assets/Tiny RPG Forest/
+/Assets/Render/
+*.inputactions
+*.meta
+*.cs.meta
+*.asset
+*.txt
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
@@ -57,4 +66,4 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
-
+*.meta
