@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MainChar : MonoBehaviour
 {
+    public static MainChar instace;
     public Rigidbody2D rb;
     public float spd;
     Vector2 move;
@@ -19,6 +20,7 @@ public class MainChar : MonoBehaviour
 
     void Start()
     {
+        instace = this;
         dashT = dashDur + 1;
         tmpSpd = spd;
     }
