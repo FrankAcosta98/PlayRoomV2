@@ -35,8 +35,7 @@ namespace Pathfinding {
         /// <summary>Update is called once per frame</summary>
         void Update()
         {
-            if (AIDestinationSetter.target == null)
-            {
+            
 
                 if (targets.Length == 0) return;
 
@@ -60,7 +59,7 @@ namespace Pathfinding {
                 agent.destination = targets[index].position;
 
                 if (search) agent.SearchPath();
-            }
+            
         }
     }
 }

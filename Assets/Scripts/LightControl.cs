@@ -8,7 +8,7 @@ public class LightControl : MonoBehaviour
 {
     public MainChar MainChar;
     CircleCollider2D col; //El Collider que representa la luz y el área de detección por los monstruos
-    UnityEngine.Experimental.Rendering.Universal.Light2D lt;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D lt;
     public float sizeRad = 2f; //Tamaño del collider
     bool IsLightOn = false; //Determina si la luz está prendida o apagada
     public bool Holded = false; //Determina si Teddy está en estado normal o levantado

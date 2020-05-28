@@ -31,7 +31,10 @@ namespace Pathfinding
         private bool chilling = false;
         private float chillLevel = 0f;
         IAstarAI ai;
-
+        void Start()
+        {
+            target = targets[index];
+        }
         void OnEnable()
         {
             ai = GetComponent<IAstarAI>();
@@ -51,13 +54,12 @@ namespace Pathfinding
         void Update()
         {
             //Debug.Log(chillLevel);
-            if ((target.name == "player" && ai != null) && (Vector2.Distance(target.position, gameObject.transform.position) > 2.53f)) ai.destination = target.position;
-            if ((target.name == "player" && ai != null) && Vector2.Distance(target.position, gameObject.transform.position) < 2.53f)
+            if ((target.name == "Player" && ai != null) && (Vector2.Distance(target.position, gameObject.transform.position) > 2.53f)) ai.destination = target.position;
+            if ((target.name == "Player" && ai != null) && Vector2.Distance(target.position, gameObject.transform.position) < 2.53f)
             {
                 Debug.Log("Te mataste");
             }
-            if (target.name != "player")
-
+            if (target.name != "Player")
             {
 
                 if (targets.Length == 0) return;
