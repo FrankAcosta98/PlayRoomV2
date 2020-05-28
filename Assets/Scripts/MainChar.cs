@@ -8,7 +8,7 @@ public class MainChar : MonoBehaviour
     public static MainChar instace;
     public Rigidbody2D rb;
     public float spd;
-    Vector2 move;
+    [HideInInspector] public Vector2 move;
     public float dashVel;
     private float dashT;
     public float dashDur;
