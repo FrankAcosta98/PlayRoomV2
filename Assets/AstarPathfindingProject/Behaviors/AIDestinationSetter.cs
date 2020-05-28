@@ -1,3 +1,4 @@
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using System.Collections;
 
@@ -17,7 +18,10 @@ namespace Pathfinding
     public class AIDestinationSetter : VersionedMonoBehaviour
     {
         /// <summary>The object that the AI should move to</summary>
-        public Transform target;
+        public Transform target = null;
+        public float chill = 2f;
+        private bool chilling = false;
+        private float chillLevel = 0f;
         IAstarAI ai;
 
         void OnEnable()
@@ -38,10 +42,32 @@ namespace Pathfinding
         /// <summary>Updates the AI's destination every frame</summary>
         void Update()
         {
-            if ((target != null && ai != null) && (Vector2.Distance(target.position, gameObject.transform.position) > 0.1f)) ai.destination = target.position;
-
-
+            Debug.Log(chillLevel);
+            if ((target != null && ai != null) && (Vector2.Distance(target.position, gameObject.transform.position) > 2.53f)) ai.destination = target.position;
         }
-
+        void FixedUpdate()
+        {
+            if (target.name == "Player" && chilling)
+            {
+                if (chillLevel < chill)
+                    chillLevel += Time.fixedDeltaTime;
+                else
+                    target = null;
+            }
+        }
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.name == "Player")
+            {
+                chilling = false;
+                chillLevel = 0f;
+                target = other.gameObject.transform;
+            }
+        }
+        void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.name == "Player")
+                chilling = true;
+        }
     }
 }
