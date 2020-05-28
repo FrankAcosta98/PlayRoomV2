@@ -5,20 +5,27 @@ using UnityEngine;
 public class push : MonoBehaviour
 {
     private bool usable = false;
-    GameObject Player;
-    Rigidbody2D rb;
+    Transform Player;
+    public Rigidbody2D rb;
+    private bool move = false;
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
 
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && usable)
+        { move = true; }
+        if (Input.GetKeyUp(KeyCode.E) && usable)
+        { move = false; }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.E) && usable)
+        if (move && Vector2.Distance(Player.position, gameObject.transform.position) > 2.53f)
         {
-            rb.MovePosition(rb.position + Player.GetComponent<MainChar>().move * Player.GetComponent<MainChar>().spd * Time.fixedDeltaTime);
+            rb.MovePosition(Vector2.MoveTowards(gameObject.transform.position, Player.position, Player.GetComponent<MainChar>().spd * Time.fixedDeltaTime));
         }
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -26,7 +33,7 @@ public class push : MonoBehaviour
         if (other.name == "Player")
         {
             usable = true;
-            Player = other.gameObject;
+            Player = other.gameObject.transform;
         }
     }
     void OnTriggerExit2D(Collider2D other)
