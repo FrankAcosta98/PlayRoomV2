@@ -18,7 +18,7 @@ namespace Pathfinding
     public class AIDestinationSetter : VersionedMonoBehaviour
     {
         /// <summary>The object that the AI should move to</summary>
-        public Transform target = null;
+        [HideInInspector] public Transform target = null;
         public float chill = 2f;
         private bool chilling = false;
         private float chillLevel = 0f;
@@ -44,6 +44,10 @@ namespace Pathfinding
         {
             Debug.Log(chillLevel);
             if ((target != null && ai != null) && (Vector2.Distance(target.position, gameObject.transform.position) > 2.53f)) ai.destination = target.position;
+            if ((target != null && ai != null) && Vector2.Distance(target.position, gameObject.transform.position) < 2.53f)
+            {
+                Debug.Log("Te mataste");
+            }
         }
         void FixedUpdate()
         {
@@ -51,7 +55,7 @@ namespace Pathfinding
             {
                 if (chillLevel < chill)
                     chillLevel += Time.fixedDeltaTime;
-                else
+                if (chillLevel >= chill && target != null)
                     target = null;
             }
         }
