@@ -17,7 +17,6 @@ namespace Pathfinding {
 	public class Patrol : VersionedMonoBehaviour {
 		/// <summary>Target points to move to in order</summary>
 		public Transform[] targets;
-        public AIDestinationSetter AIDestinationSetter;
 
         /// <summary>Time in seconds to wait at each target</summary>
         public float delay = 0;

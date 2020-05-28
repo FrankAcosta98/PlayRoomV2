@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using System.Collections;
@@ -18,7 +19,14 @@ namespace Pathfinding
     public class AIDestinationSetter : VersionedMonoBehaviour
     {
         /// <summary>The object that the AI should move to</summary>
-        [HideInInspector] public Transform target = null;
+        [HideInInspector] public Transform target;
+        [Header("Points")]
+        public Transform[] targets;
+        public float delay = 1f;
+        int index;
+        float switchTime = float.PositiveInfinity;
+
+        [Header("Hunt")]
         public float chill = 2f;
         private bool chilling = false;
         private float chillLevel = 0f;
@@ -42,11 +50,38 @@ namespace Pathfinding
         /// <summary>Updates the AI's destination every frame</summary>
         void Update()
         {
-            Debug.Log(chillLevel);
-            if ((target != null && ai != null) && (Vector2.Distance(target.position, gameObject.transform.position) > 2.53f)) ai.destination = target.position;
-            if ((target != null && ai != null) && Vector2.Distance(target.position, gameObject.transform.position) < 2.53f)
+            //Debug.Log(chillLevel);
+            if ((target.name == "player" && ai != null) && (Vector2.Distance(target.position, gameObject.transform.position) > 2.53f)) ai.destination = target.position;
+            if ((target.name == "player" && ai != null) && Vector2.Distance(target.position, gameObject.transform.position) < 2.53f)
             {
                 Debug.Log("Te mataste");
+            }
+            if (target.name != "player")
+
+            {
+
+                if (targets.Length == 0) return;
+
+                bool search = false;
+
+                // Note: using reachedEndOfPath and pathPending instead of reachedDestination here because
+                // if the destination cannot be reached by the agent, we don't want it to get stuck, we just want it to get as close as possible and then move on.
+                if (ai.reachedEndOfPath && !ai.pathPending && float.IsPositiveInfinity(switchTime))
+                {
+                    switchTime = Time.time + delay;
+                }
+
+                if (Time.time >= switchTime)
+                {
+                    index = index + 1;
+                    search = true;
+                    switchTime = float.PositiveInfinity;
+                }
+
+                index = index % targets.Length;
+                ai.destination = targets[index].position;
+
+                if (search) ai.SearchPath();
             }
         }
         void FixedUpdate()
@@ -55,8 +90,8 @@ namespace Pathfinding
             {
                 if (chillLevel < chill)
                     chillLevel += Time.fixedDeltaTime;
-                if (chillLevel >= chill && target != null)
-                    target = null;
+                if (chillLevel >= chill && target.name == "Player")
+                    target = targets[index];
             }
         }
         void OnTriggerEnter2D(Collider2D other)
