@@ -23,7 +23,7 @@ public class LightControl : MonoBehaviour
         col = GetComponent<CircleCollider2D>();
         lt = GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         col.radius = sizeRad;
-        lt.pointLightOuterRadius = 0.68f;
+        lt.pointLightOuterRadius = 2f;
         tmpv = MainChar.spd;
         transform.gameObject.tag = "detectable"; //Lucy se establece como detectable
     }
@@ -37,20 +37,20 @@ public class LightControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && (IsLightOn == false)) //Si se apreta "F" y la luz está apagada...
         {
             col.radius = RadMultWithLight; //Se aumenta el radio al número definido
-            lt.pointLightOuterRadius = 1.36f;
+            lt.pointLightOuterRadius = 2.8f;
             IsLightOn = true; //Se establece que la luz está prendida
         }
         else if (Input.GetKeyDown(KeyCode.F) && (IsLightOn == true)) //Si se apreta "F" y la luz está prendida...
         {
             col.radius = sizeRad; //El radio vuelve al tamaño original
-            lt.pointLightOuterRadius = 0.68f;
+            lt.pointLightOuterRadius = 2f;
             IsLightOn = false; //Se establece que la luz está apagada
         }
 
         if (Input.GetKey(KeyCode.LeftShift) && IsLightOn == true && Holded == false) //Si se mantiene apretado LeftShift, la luz está prendida y no se está levantando el Teddy
         {
             col.radius = RadMultWithHold; //El radio del collider crece al número definido
-            lt.pointLightOuterRadius = 2.72f;
+            lt.pointLightOuterRadius = 7f;
             Holded = true; //Se establece que Teddy está levantado
             MainChar.spd = VelocidadLenta; //La velocidad de Lucy se reduce a lo establecido
                                            //MainChar.anim.SetBool("High", true); //El Animator se activa para la animación de levantar a Teddy
@@ -58,7 +58,7 @@ public class LightControl : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.LeftShift) && Holded == true) //Si se deja de apretar LeftShift y se está levantando a Teddy...
         {
             col.radius = RadMultWithLight; //El radio regresa al número con la luz prendida
-            lt.pointLightOuterRadius = 1.36f;
+            lt.pointLightOuterRadius = 2.8f;
             Holded = false; //Se establece que no se está levantando a Teddy
                             //MainChar.anim.SetBool("High", false); //El Animator ya no realiza la animación de Teddy levantado
             MainChar.spd = tmpv; //La velocidad de Lucy regresa a la normal
