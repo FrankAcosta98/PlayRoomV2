@@ -5,9 +5,10 @@ using UnityEngine;
 public class push : MonoBehaviour
 {
     private bool usable = false;
-    Transform Player;
+    GameObject Player;
     public Rigidbody2D rb;
     private bool move = false;
+    private bool holded = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,27 +16,39 @@ public class push : MonoBehaviour
     }
     void Update()
     {
-        
+        if (usable && Input.GetKeyDown(KeyCode.E))
+        {
+            usable = false;
+            move = true;
+            holded = true;
+
+        }
+        else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false)
+
+        {
+            move = false;
+            holded = false;
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (move && Vector2.Distance(Player.position, gameObject.transform.position) > 2.53f)
+        if (move && Vector2.Distance(Player.transform.position, gameObject.transform.position) > 2.53f)
         {
-            rb.MovePosition(Vector2.MoveTowards(gameObject.transform.position, Player.position, Player.GetComponent<MainChar>().spd * Time.fixedDeltaTime));
+            rb.MovePosition(Vector2.MoveTowards(gameObject.transform.position, Player.transform.position, Player.GetComponent<MainChar>().spd * Time.fixedDeltaTime));
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Player")
+        if (other.name == "Player" && Vector2.Distance(other.gameObject.transform.position, gameObject.transform.position) < 3f)
         {
+            Player = other.gameObject;
             usable = true;
-            Player = other.gameObject.transform;
         }
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.name == "Player")
+        if (other.name == "Player" && Vector2.Distance(other.gameObject.transform.position, gameObject.transform.position) >= 3f)
             usable = false;
     }
 }

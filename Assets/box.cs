@@ -40,11 +40,11 @@ public class box : MonoBehaviour
             if (Player.GetComponent<MainChar>().face == "r")
                 rb.AddForce(Vector3.right * 6969);
             if (Player.GetComponent<MainChar>().face == "l")
-                rb.AddForce(Vector3.left * 6666);
+                rb.AddForce(Vector3.left * 6969);
             if (Player.GetComponent<MainChar>().face == "f")
-                rb.AddForce(Vector3.up * 6666);
+                rb.AddForce(Vector3.up * 6969);
             if (Player.GetComponent<MainChar>().face == "b")
-                rb.AddForce(Vector3.down * 6666f);
+                rb.AddForce(Vector3.down * 6969);
         }
         if (holded)
         {
