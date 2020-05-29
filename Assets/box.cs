@@ -9,6 +9,7 @@ public class box : MonoBehaviour
     public Collider2D hitbox;
     public Collider2D grab;
     public CircleCollider2D detect;
+    public Rigidbody2D rb;
 
     GameObject Player;
     // Start is called before the first frame update
@@ -29,17 +30,33 @@ public class box : MonoBehaviour
             detect.enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
         }
-        else if (holded && Input.GetKeyDown(KeyCode.E)&&usable==false)
+        else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false)
         {
             hitbox.enabled = true;
             holded = false;
             grab.enabled = true;
             detect.enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
+            if (Player.GetComponent<MainChar>().face == "r")
+                rb.AddForce(Vector3.right * 6969);
+            if (Player.GetComponent<MainChar>().face == "l")
+                rb.AddForce(Vector3.left * 6666);
+            if (Player.GetComponent<MainChar>().face == "f")
+                rb.AddForce(Vector3.up * 6666);
+            if (Player.GetComponent<MainChar>().face == "b")
+                rb.AddForce(Vector3.down * 6666f);
         }
         if (holded)
         {
-            gameObject.transform.position = Player.transform.position;
+            if (Player.GetComponent<MainChar>().face == "r")
+                gameObject.transform.position = Player.transform.position + Vector3.right;
+            if (Player.GetComponent<MainChar>().face == "l")
+                gameObject.transform.position = Player.transform.position + Vector3.left;
+            if (Player.GetComponent<MainChar>().face == "f")
+                gameObject.transform.position = Player.transform.position + Vector3.up;
+            if (Player.GetComponent<MainChar>().face == "b")
+                gameObject.transform.position = Player.transform.position + (Vector3.down * 2f);
+
         }
     }
     void OnTriggerEnter2D(Collider2D other)

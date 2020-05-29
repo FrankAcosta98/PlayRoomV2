@@ -16,7 +16,7 @@ public class LightControl : MonoBehaviour
     public float VelocidadLenta = 1.98f; //Velocidad a la que Lucy se mueve cuando tiene a Teddy levantado
     public float RadMultWithHold = 6.44f; //Radio de collider cuando Teddy está levantado
     private float tmpv; //Velocidad original de Lucy, se guarda para que cuando cambie pueda regresar a su estado original
-
+    
     void Start()
     {
         //Se inician los componentes necesarios

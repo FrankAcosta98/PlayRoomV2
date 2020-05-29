@@ -17,7 +17,7 @@ public class MainChar : MonoBehaviour
     public float dashC;
     private float tmpSpd;
     private float slow;
-
+    [HideInInspector] public string face;
     void Start()
     {
         instace = this;
@@ -33,13 +33,21 @@ public class MainChar : MonoBehaviour
             spd = tmpSpd * dashVel;
             dashChg = 0.0f;
         }
-        if(spd<tmpSpd)
+        if (spd < tmpSpd)
             tmpSpd -= slow;
         //Debug.Log();
     }
 
     void FixedUpdate()
     {
+        if (move.x == 1)
+            face = "r";
+        if (move.x == -1)
+            face = "l";
+        if (move.y == 1 && move.x == 0)
+            face = "f";
+        if (move.y == -1 && move.x == 0)
+            face = "b";
         if (Input.GetAxisRaw("Horizontal") > 0 && Input.GetAxisRaw("Vertical") > 0)//movimiento
             rb.MovePosition(rb.position + move.normalized * spd * Time.fixedDeltaTime);
         else
@@ -50,12 +58,13 @@ public class MainChar : MonoBehaviour
             dash = false;
             spd = tmpSpd; //Velocidad base
         }
-        if (dashT < dashDur) {  //Si el tiempo con Dash es menor a la duración..
-        dash = true;
+        if (dashT < dashDur)
+        {  //Si el tiempo con Dash es menor a la duración..
+            dash = true;
             slow = 1f;
         }
-    dashT += Time.fixedDeltaTime;
-    if(spd<tmpSpd)
+        dashT += Time.fixedDeltaTime;
+        if (spd < tmpSpd)
             slow += Time.smoothDeltaTime;
     }
 }
