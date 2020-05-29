@@ -6,11 +6,15 @@ public class box : MonoBehaviour
 {
     private bool usable = false;
     private bool holded = false;
+    public Collider2D hitbox;
+    public Collider2D grab;
+    public CircleCollider2D detect;
+
     GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
-
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
     }
 
     // Update is called once per frame
@@ -18,14 +22,20 @@ public class box : MonoBehaviour
     {
         if (usable && Input.GetKeyDown(KeyCode.E))
         {
+            usable = false;
             holded = true;
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            hitbox.enabled = false;
+            grab.enabled = false;
+            detect.enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
         }
-        if (holded && Input.GetKeyDown(KeyCode.E))
+        else if (holded && Input.GetKeyDown(KeyCode.E)&&usable==false)
         {
-            gameObject.GetComponent<BoxCollider2D>().enabled = true;
-            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            hitbox.enabled = true;
+            holded = false;
+            grab.enabled = true;
+            detect.enabled = true;
+            GetComponent<SpriteRenderer>().enabled = true;
         }
         if (holded)
         {
