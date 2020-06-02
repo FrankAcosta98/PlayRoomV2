@@ -28,7 +28,7 @@ public class box : MonoBehaviour
             hitbox.enabled = false;
             grab.enabled = false;
             detect.enabled = false;
-            GetComponent<SpriteRenderer>().enabled = false;
+            //GetComponent<SpriteRenderer>().enabled = false;
         }
         else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false)
         {
