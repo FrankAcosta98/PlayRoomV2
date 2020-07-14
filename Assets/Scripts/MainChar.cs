@@ -21,7 +21,9 @@ public class MainChar : MonoBehaviour
     private float slow;
     [HideInInspector] public char face;
     public Animator anim;
+    [HideInInspector] public bool box = false;
     void Start()
+
     {
         instace = this;
         dashT = dashDur + 1;
@@ -31,12 +33,13 @@ public class MainChar : MonoBehaviour
         anim.SetBool("box", false);
         anim.SetBool("push", false);
         anim.SetBool("light", false);
+        anim.speed = 0.8f;
     }
     void Update()
     {
         move.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         dashChg += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) && dash && dashChg >= dashC)
+        if (Input.GetKeyDown(KeyCode.Space) && dash && dashChg >= dashC&&box==false)
         {
             spd = tmpSpd * dashVel;
             dashChg = 0.0f;
@@ -78,10 +81,10 @@ public class MainChar : MonoBehaviour
         else
             rb.MovePosition(rb.position + move * spd * Time.fixedDeltaTime);
 
-        if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.enabled == true)
-            anim.enabled = false;
-        else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && anim.enabled == false)
-            anim.enabled = true;
+        if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.speed == 0.8f)
+            anim.speed = 0f;
+        else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && anim.speed == 0f)
+            anim.speed = 0.8f;
         
         if (dashT > dashDur) //Si el tiempo con Dash se vuelve mayor a la duración..
         {
