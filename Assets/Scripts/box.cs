@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Data.Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class box : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(grab.IsTouchingLayers(8));
         if (usable && Input.GetKeyDown(KeyCode.E))
         {
             usable = false;
@@ -34,7 +36,7 @@ public class box : MonoBehaviour
         {
             hitbox.enabled = true;
             holded = false;
-            grab.enabled = true;
+            //grab.enabled = true;
             detect.enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
             if (Player.GetComponent<MainChar>().face == "r")
