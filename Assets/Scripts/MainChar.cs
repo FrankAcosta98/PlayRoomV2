@@ -39,7 +39,7 @@ public class MainChar : MonoBehaviour
     {
         move.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         dashChg += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) && dash && dashChg >= dashC&&box==false)
+        if (Input.GetKeyDown(KeyCode.Space) && dash && dashChg >= dashC && box == false)
         {
             spd = tmpSpd * dashVel;
             dashChg = 0.0f;
@@ -65,14 +65,20 @@ public class MainChar : MonoBehaviour
         }
         if (move.x == 1)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            if (box == false)
+                GetComponent<SpriteRenderer>().flipX = false;
             anim.SetFloat("blend", 0.5f);
             face = 'r';
         }
         if (move.x == -1)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
-            anim.SetFloat("blend", 0.5f);
+            if (box == false)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                anim.SetFloat("blend", 0.5f);
+            }
+            else
+                anim.SetFloat("blend", 0.7f);
             face = 'l';
         }
 
@@ -82,10 +88,14 @@ public class MainChar : MonoBehaviour
             rb.MovePosition(rb.position + move * spd * Time.fixedDeltaTime);
 
         if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.speed == 0.8f)
+        {
             anim.speed = 0f;
+            //anim.Play(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 0);
+            Debug.Log(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        }
         else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && anim.speed == 0f)
             anim.speed = 0.8f;
-        
+
         if (dashT > dashDur) //Si el tiempo con Dash se vuelve mayor a la duración..
         {
             dashT = 0; //El tiempo de dash se queda en 0
@@ -97,7 +107,7 @@ public class MainChar : MonoBehaviour
         {  //Si el tiempo con Dash es menor a la duración..
             dash = true;
             slow = 1f;
-            
+
         }
         dashT += Time.fixedDeltaTime;
         if (spd < tmpSpd)
