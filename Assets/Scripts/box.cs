@@ -40,7 +40,7 @@ public class box : MonoBehaviour
             holded = false;
             detect.enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
-            Player.GetComponent<MainChar>().box = true;
+            Player.GetComponent<MainChar>().box = false;
             switch (Player.GetComponent<MainChar>().face)
             {
                 case ('r'):
