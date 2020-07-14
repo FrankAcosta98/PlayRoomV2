@@ -33,7 +33,7 @@ public class MainChar : MonoBehaviour
         anim.SetBool("box", false);
         anim.SetBool("push", false);
         anim.SetBool("light", false);
-        anim.speed = 0.8f;
+        anim.speed = 1f;
     }
     void Update()
     {
@@ -87,14 +87,14 @@ public class MainChar : MonoBehaviour
         else
             rb.MovePosition(rb.position + move * spd * Time.fixedDeltaTime);
 
-        if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.speed == 0.8f)
+        if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.speed == 1f)
         {
-            anim.speed = 0f;
+            anim.enabled = false;
             //anim.Play(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 0);
-            Debug.Log(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+            //Debug.Log(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
         }
         else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && anim.speed == 0f)
-            anim.speed = 0.8f;
+            anim.speed = 1f;
 
         if (dashT > dashDur) //Si el tiempo con Dash se vuelve mayor a la duración..
         {
