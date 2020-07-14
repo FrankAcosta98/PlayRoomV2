@@ -11,7 +11,7 @@ public class box : MonoBehaviour
     public Collider2D grab;
     public CircleCollider2D detect;
     public Rigidbody2D rb;
-
+    public int type;
     GameObject Player;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class box : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(grab.IsTouchingLayers(8));
+        
         if (usable && Input.GetKeyDown(KeyCode.E))
         {
             usable = false;
@@ -39,26 +39,55 @@ public class box : MonoBehaviour
             //grab.enabled = true;
             detect.enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
-            if (Player.GetComponent<MainChar>().face == "r")
-                rb.AddForce(Vector3.right * 6969);
-            if (Player.GetComponent<MainChar>().face == "l")
-                rb.AddForce(Vector3.left * 6969);
-            if (Player.GetComponent<MainChar>().face == "f")
-                rb.AddForce(Vector3.up * 6969);
-            if (Player.GetComponent<MainChar>().face == "b")
-                rb.AddForce(Vector3.down * 6969);
+            switch (Player.GetComponent<MainChar>().face)
+            {
+                case ('r'):
+                    {
+                        rb.AddForce(Vector3.right * 6969);
+                        break;
+                    }
+                case ('l'):
+                    {
+                        rb.AddForce(Vector3.left * 6969);
+                        break;
+                    }
+                case ('f'):
+                    {
+                        rb.AddForce(Vector3.up * 6969);
+                        break;
+                    }
+                case ('b'):
+                    {
+                        rb.AddForce(Vector3.down * 6969);
+                        break;
+                    }
+            }
         }
         if (holded)
         {
-            if (Player.GetComponent<MainChar>().face == "r")
-                gameObject.transform.position = Player.transform.position + Vector3.right;
-            if (Player.GetComponent<MainChar>().face == "l")
-                gameObject.transform.position = Player.transform.position + Vector3.left;
-            if (Player.GetComponent<MainChar>().face == "f")
-                gameObject.transform.position = Player.transform.position + Vector3.up;
-            if (Player.GetComponent<MainChar>().face == "b")
-                gameObject.transform.position = Player.transform.position + (Vector3.down * 2f);
-
+            switch (Player.GetComponent<MainChar>().face)
+            {
+                case ('r'):
+                    {
+                        gameObject.transform.position = Player.transform.position + Vector3.right;
+                        break;
+                    }
+                case ('l'):
+                    {
+                        gameObject.transform.position = Player.transform.position + Vector3.left;
+                        break;
+                    }
+                case ('f'):
+                    {
+                        gameObject.transform.position = Player.transform.position + Vector3.up;
+                        break;
+                    }
+                case ('b'):
+                    {
+                        gameObject.transform.position = Player.transform.position + Vector3.down;
+                        break;
+                    }
+            }
         }
     }
     void OnTriggerEnter2D(Collider2D other)

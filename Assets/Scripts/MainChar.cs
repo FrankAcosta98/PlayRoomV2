@@ -17,7 +17,8 @@ public class MainChar : MonoBehaviour
     public float dashC;
     private float tmpSpd;
     private float slow;
-    [HideInInspector] public string face;
+    [HideInInspector] public char face;
+    private Animator anim;
     void Start()
     {
         instace = this;
@@ -35,19 +36,33 @@ public class MainChar : MonoBehaviour
         }
         if (spd < tmpSpd)
             tmpSpd -= slow;
-        //Debug.Log();
+
     }
 
     void FixedUpdate()
     {
-        if (move.x == 1)
-            face = "r";
-        if (move.x == -1)
-            face = "l";
+
         if (move.y == 1 && move.x == 0)
-            face = "f";
+        {
+            anim.SetFloat("blend", 0);
+            face = 'f';
+        }
         if (move.y == -1 && move.x == 0)
-            face = "b";
+        {
+            anim.SetFloat("blend", 1);
+            face = 'b';
+        }
+        if (move.x == 1)
+        {
+            anim.SetFloat("blend", 0.5f);
+            face = 'r';
+        }
+        if (move.x == -1)
+        {
+            anim.SetFloat("blend", 0.5f);
+            face = 'l';
+        }
+
         if (Input.GetAxisRaw("Horizontal") > 0 && Input.GetAxisRaw("Vertical") > 0)//movimiento
             rb.MovePosition(rb.position + move.normalized * spd * Time.fixedDeltaTime);
         else
