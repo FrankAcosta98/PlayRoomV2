@@ -8,7 +8,6 @@ public class MainChar : MonoBehaviour
     public static MainChar instace;
     public Rigidbody2D rb;
     public float spd;
-    public bool run = false;
     public int idleT;
     public bool oso = true;
     [HideInInspector] public Vector2 move;
@@ -28,7 +27,7 @@ public class MainChar : MonoBehaviour
         dashT = dashDur + 1;
         tmpSpd = spd;
         anim.SetBool("ted", oso);
-        anim.SetBool("run", run);
+        anim.SetBool("run", false);
         anim.SetBool("box", false);
         anim.SetBool("push", false);
         anim.SetBool("light", false);
@@ -41,6 +40,7 @@ public class MainChar : MonoBehaviour
         {
             spd = tmpSpd * dashVel;
             dashChg = 0.0f;
+            anim.SetBool("run", true);
         }
         if (spd < tmpSpd)
             tmpSpd -= slow;
@@ -62,7 +62,7 @@ public class MainChar : MonoBehaviour
         }
         if (move.x == 1)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
             anim.SetFloat("blend", 0.5f);
             face = 'r';
         }
@@ -72,21 +72,29 @@ public class MainChar : MonoBehaviour
             anim.SetFloat("blend", 0.5f);
             face = 'l';
         }
-        
+
         if (Input.GetAxisRaw("Horizontal") > 0 && Input.GetAxisRaw("Vertical") > 0)//movimiento
             rb.MovePosition(rb.position + move.normalized * spd * Time.fixedDeltaTime);
         else
             rb.MovePosition(rb.position + move * spd * Time.fixedDeltaTime);
+
+        if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.enabled == true)
+            anim.enabled = false;
+        else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && anim.enabled == false)
+            anim.enabled = true;
+        
         if (dashT > dashDur) //Si el tiempo con Dash se vuelve mayor a la duración..
         {
             dashT = 0; //El tiempo de dash se queda en 0
             dash = false;
             spd = tmpSpd; //Velocidad base
+            anim.SetBool("run", false);
         }
         if (dashT < dashDur)
         {  //Si el tiempo con Dash es menor a la duración..
             dash = true;
             slow = 1f;
+            
         }
         dashT += Time.fixedDeltaTime;
         if (spd < tmpSpd)

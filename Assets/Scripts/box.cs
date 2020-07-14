@@ -11,7 +11,7 @@ public class box : MonoBehaviour
     public Collider2D grab;
     public CircleCollider2D detect;
     public Rigidbody2D rb;
-    public int type;
+    public float type;
     GameObject Player;
     // Start is called before the first frame update
     void Start()
@@ -24,19 +24,19 @@ public class box : MonoBehaviour
     {
         
         if (usable && Input.GetKeyDown(KeyCode.E))
-        {
+        {   Player.GetComponent<MainChar>().anim.SetBool("box", true);
+            Player.GetComponent<MainChar>().anim.SetFloat("Boxnum", type);
             usable = false;
             holded = true;
             hitbox.enabled = false;
             grab.enabled = false;
             detect.enabled = false;
-            //GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
         }
         else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false)
         {
             hitbox.enabled = true;
             holded = false;
-            //grab.enabled = true;
             detect.enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
             switch (Player.GetComponent<MainChar>().face)
