@@ -8,6 +8,9 @@ public class MainChar : MonoBehaviour
     public static MainChar instace;
     public Rigidbody2D rb;
     public float spd;
+    public bool run = false;
+    public int idleT;
+    public bool oso = true;
     [HideInInspector] public Vector2 move;
     public float dashVel;
     private float dashT;
@@ -18,12 +21,17 @@ public class MainChar : MonoBehaviour
     private float tmpSpd;
     private float slow;
     [HideInInspector] public char face;
-    private Animator anim;
+    public Animator anim;
     void Start()
     {
         instace = this;
         dashT = dashDur + 1;
         tmpSpd = spd;
+        anim.SetBool("ted", oso);
+        anim.SetBool("run", run);
+        anim.SetBool("box", false);
+        anim.SetBool("push", false);
+        anim.SetBool("light", false);
     }
     void Update()
     {
@@ -44,25 +52,27 @@ public class MainChar : MonoBehaviour
 
         if (move.y == 1 && move.x == 0)
         {
-            anim.SetFloat("blend", 0);
+            anim.SetFloat("blend", 1);
             face = 'f';
         }
         if (move.y == -1 && move.x == 0)
         {
-            anim.SetFloat("blend", 1);
+            anim.SetFloat("blend", 0);
             face = 'b';
         }
         if (move.x == 1)
         {
+            GetComponent<SpriteRenderer>().flipX = true;
             anim.SetFloat("blend", 0.5f);
             face = 'r';
         }
         if (move.x == -1)
         {
+            GetComponent<SpriteRenderer>().flipX = true;
             anim.SetFloat("blend", 0.5f);
             face = 'l';
         }
-
+        
         if (Input.GetAxisRaw("Horizontal") > 0 && Input.GetAxisRaw("Vertical") > 0)//movimiento
             rb.MovePosition(rb.position + move.normalized * spd * Time.fixedDeltaTime);
         else
