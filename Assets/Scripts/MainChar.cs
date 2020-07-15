@@ -90,7 +90,7 @@ public class MainChar : MonoBehaviour
         if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.speed == 1f)
         {
             anim.speed = 0f;
-            //anim.Play(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 0);
+            anim.PlayInFixedTime(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 0,0f);
             //Debug.Log(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
         }
         else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && anim.speed == 0f)

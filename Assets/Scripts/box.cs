@@ -65,6 +65,7 @@ public class box : MonoBehaviour
                         break;
                     }
             }
+            //Player.GetComponent<MainChar>().anim.PlayInFixedTime()
         }
         if (holded)
         {
