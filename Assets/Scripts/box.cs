@@ -26,7 +26,7 @@ public class box : MonoBehaviour
         if (usable && Input.GetKeyDown(KeyCode.E))
         {   Player.GetComponent<MainChar>().anim.SetBool("box", true);
             Player.GetComponent<MainChar>().box = true;
-            Player.GetComponent<MainChar>().anim.SetFloat("Boxnum", type);
+            Player.GetComponent<MainChar>().anim.SetFloat("boxNum", type);
             usable = false;
             holded = true;
             hitbox.enabled = false;
@@ -39,6 +39,7 @@ public class box : MonoBehaviour
             hitbox.enabled = true;
             holded = false;
             detect.enabled = true;
+            Player.GetComponent<MainChar>().anim.SetBool("box", false);
             GetComponent<SpriteRenderer>().enabled = true;
             Player.GetComponent<MainChar>().box = false;
             switch (Player.GetComponent<MainChar>().face)
