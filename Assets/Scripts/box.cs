@@ -27,6 +27,7 @@ public class box : MonoBehaviour
         {   Player.GetComponent<MainChar>().anim.SetBool("box", true);
             Player.GetComponent<MainChar>().box = true;
             Player.GetComponent<MainChar>().anim.SetFloat("boxNum", type);
+            Player.GetComponent<SpriteRenderer>().flipX = false;
             usable = false;
             holded = true;
             hitbox.enabled = false;
@@ -40,6 +41,7 @@ public class box : MonoBehaviour
             holded = false;
             detect.enabled = true;
             Player.GetComponent<MainChar>().anim.SetBool("box", false);
+            Player.GetComponent<MainChar>().anim.PlayInFixedTime(Player.GetComponent<MainChar>().anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 8, 0f);
             GetComponent<SpriteRenderer>().enabled = true;
             Player.GetComponent<MainChar>().box = false;
             switch (Player.GetComponent<MainChar>().face)
