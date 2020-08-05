@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Experimental.Rendering.Universal;
 public class HidePlace : MonoBehaviour
 {
     [Header("Components")]
@@ -28,6 +28,7 @@ public class HidePlace : MonoBehaviour
             MainChar.instace.GetComponent<PolygonCollider2D>().enabled = false;
             MainChar.instace.GetComponent<SpriteRenderer>().enabled = false;
             hided = true;
+            coso.GetComponent<Light2D>().enabled = false;
             //MainChar.instace.GetComponent<Transform>().GetChild(0).gameObject.SetActive(false);
             //desactivar luz
         }
@@ -41,7 +42,7 @@ public class HidePlace : MonoBehaviour
             //MainChar.instace.GetComponent<Transform>().GetChild(0).gameObject.SetActive(true);
             hided = false;
             MainChar.instace.GetComponent<Transform>().tag = "detectable";
-            
+            coso.GetComponent<Light2D>().enabled = true;
             //desactivar luz
         }
     }
