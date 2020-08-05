@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Threading;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class HidePlace : MonoBehaviour
 
     private bool usable = false;
     private bool hided = false;
+    private GameObject coso;
     void Start()
     {
         //anim = GetComponent<Animator>();
@@ -39,6 +41,7 @@ public class HidePlace : MonoBehaviour
             //MainChar.instace.GetComponent<Transform>().GetChild(0).gameObject.SetActive(true);
             hided = false;
             MainChar.instace.GetComponent<Transform>().tag = "detectable";
+            
             //desactivar luz
         }
     }
@@ -50,6 +53,7 @@ public class HidePlace : MonoBehaviour
         {
             //this.gameObject.GetComponent<SpriteRenderer>().sprite = seeing;
             usable = true;
+            coso = other.gameObject;
         }
     }
     void OnTriggerExit2D(Collider2D other)
