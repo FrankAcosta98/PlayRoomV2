@@ -35,7 +35,7 @@ public class box : MonoBehaviour
             detect.enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
         }
-        else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false)
+        else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false&&Player.GetComponent<Animator>().GetBool("push")==false)
         {
             hitbox.enabled = true;
             holded = false;
