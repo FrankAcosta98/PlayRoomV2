@@ -28,18 +28,13 @@ public class MainChar : MonoBehaviour
         instace = this;
         dashT = dashDur + 1;
         tmpSpd = spd;
-        anim.SetBool("ted", oso);
-        anim.SetBool("run", false);
-        anim.SetBool("box", false);
-        anim.SetBool("push", false);
-        anim.SetBool("light", false);
-        anim.speed = 1f;
+
     }
     void Update()
     {
         move.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         dashChg += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) && dash && dashChg >= dashC && box == false)
+        if (Input.GetKeyDown(KeyCode.Space) && dash && dashChg >= dashC && box == false && anim.GetBool("light") == false)
         {
             spd = tmpSpd * dashVel;
             dashChg = 0.0f;
@@ -47,7 +42,6 @@ public class MainChar : MonoBehaviour
         }
         if (spd < tmpSpd)
             tmpSpd -= slow;
-
     }
 
     void FixedUpdate()
@@ -81,20 +75,15 @@ public class MainChar : MonoBehaviour
                 anim.SetFloat("blend", 0.7f);
             face = 'l';
         }
+        if (move.x == 0 && move.y == 0)
+            anim.SetBool("idle", true);
+        else if (anim.GetBool("idle") == true)
+            anim.SetBool("idle", false);
 
         if (Input.GetAxisRaw("Horizontal") > 0 && Input.GetAxisRaw("Vertical") > 0)//movimiento
             rb.MovePosition(rb.position + move.normalized * spd * Time.fixedDeltaTime);
         else
             rb.MovePosition(rb.position + move * spd * Time.fixedDeltaTime);
-
-        if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) && anim.speed == 1f)
-        {
-            //anim.PlayInFixedTime(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 0,0f);
-            anim.speed = 0f;
-            
-        }
-        else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && anim.speed == 0f)
-            anim.speed = 1f;
 
         if (dashT > dashDur) //Si el tiempo con Dash se vuelve mayor a la duración..
         {

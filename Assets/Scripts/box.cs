@@ -41,7 +41,7 @@ public class box : MonoBehaviour
             holded = false;
             detect.enabled = true;
             Player.GetComponent<MainChar>().anim.SetBool("box", false);
-            Player.GetComponent<MainChar>().anim.PlayInFixedTime(Player.GetComponent<MainChar>().anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 8, 0f);
+            //Player.GetComponent<MainChar>().anim.PlayInFixedTime(Player.GetComponent<MainChar>().anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 8, 0f);
             GetComponent<SpriteRenderer>().enabled = true;
             Player.GetComponent<MainChar>().box = false;
             switch (Player.GetComponent<MainChar>().face)
