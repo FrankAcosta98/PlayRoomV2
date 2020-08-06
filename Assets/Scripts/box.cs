@@ -14,7 +14,7 @@ public class box : MonoBehaviour
     public float level;
     public Sprite caja;
     public Sprite borde;
-
+    public Animator anim;
     GameObject Player;
     // Start is called before the first frame update
     void Start()
@@ -103,7 +103,7 @@ public class box : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Player" && Vector2.Distance(other.gameObject.transform.position, gameObject.transform.position) < 3f)
+        if (other.name == "Player" && Vector2.Distance(other.gameObject.transform.position, gameObject.transform.position) < 2f)
         {
             Player = other.gameObject;
             usable = true;
@@ -112,13 +112,13 @@ public class box : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.name == "Player" && Vector2.Distance(other.gameObject.transform.position, gameObject.transform.position) >= 3f)
+        if (other.name == "Player" )
         {
             usable = false;
             gameObject.GetComponent<SpriteRenderer>().sprite = caja;
         }
     }
     void play(){
-        
+
     }
 }
