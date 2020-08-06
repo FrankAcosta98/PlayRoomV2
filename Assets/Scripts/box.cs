@@ -11,22 +11,27 @@ public class box : MonoBehaviour
     public Collider2D grab;
     public CircleCollider2D detect;
     public Rigidbody2D rb;
-    public float type;
+    public float level;
+    public Sprite caja;
+    public Sprite borde;
+
     GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
         gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().sprite = caja;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (usable && Input.GetKeyDown(KeyCode.E))
-        {   Player.GetComponent<MainChar>().anim.SetBool("box", true);
+        {
+            Player.GetComponent<MainChar>().anim.SetBool("box", true);
             Player.GetComponent<MainChar>().box = true;
-            Player.GetComponent<MainChar>().anim.SetFloat("boxNum", type);
+            Player.GetComponent<MainChar>().anim.SetFloat("boxNum", level);
             Player.GetComponent<SpriteRenderer>().flipX = false;
             usable = false;
             holded = true;
@@ -35,7 +40,7 @@ public class box : MonoBehaviour
             detect.enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
         }
-        else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false&&Player.GetComponent<Animator>().GetBool("push")==false)
+        else if (holded && Input.GetKeyDown(KeyCode.E) && usable == false && Player.GetComponent<Animator>().GetBool("push") == false)
         {
             hitbox.enabled = true;
             holded = false;
@@ -102,11 +107,18 @@ public class box : MonoBehaviour
         {
             Player = other.gameObject;
             usable = true;
+            gameObject.GetComponent<SpriteRenderer>().sprite = borde;
         }
     }
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.name == "Player" && Vector2.Distance(other.gameObject.transform.position, gameObject.transform.position) >= 3f)
+        {
             usable = false;
+            gameObject.GetComponent<SpriteRenderer>().sprite = caja;
+        }
+    }
+    void play(){
+        
     }
 }
