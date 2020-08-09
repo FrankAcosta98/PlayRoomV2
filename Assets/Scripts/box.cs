@@ -117,7 +117,7 @@ public class box : MonoBehaviour
             usable = false;
             gameObject.GetComponent<SpriteRenderer>().sprite = caja;
         }
-    }
+    }{l}
     void play(){
 
     }
