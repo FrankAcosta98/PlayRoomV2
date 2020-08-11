@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics.Contracts;
+using System.Drawing;
 
 
 namespace Pathfinding
@@ -8,16 +10,15 @@ namespace Pathfinding
 
     [UniqueComponent(tag = "ai.destination")]
 
-    public class AINonLethal : VersionedMonoBehaviour
+    public class AINonLethalNoPath : VersionedMonoBehaviour
     {
         /// <summary>The object that the AI should move to</summary>
 
         public GameObject player;
-        float switchTime = float.PositiveInfinity;
         IAstarAI ai;
         void Start()
         {
-            
+
         }
         void OnEnable()
         {
@@ -39,7 +40,7 @@ namespace Pathfinding
         {
             //Debug.Log(chillLevel);
             if ((ai != null) && (Vector2.Distance(player.transform.position, gameObject.transform.position) > 2.53f)) ai.destination = player.transform.position;
-            
+
         }
         void OnTriggerEnter2D(Collider2D other)
         {
