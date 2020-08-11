@@ -42,7 +42,7 @@ public class MainChar : MonoBehaviour
         }
         if (spd < tmpSpd)
             tmpSpd -= slow;
-        Debug.Log(anim.GetBool("push"));
+        //Debug.Log(anim.GetBool("push"));
     }
 
     void FixedUpdate()
