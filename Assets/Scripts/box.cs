@@ -17,10 +17,11 @@ public class box : MonoBehaviour
     public Animator anim;
     GameObject Player;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gameObject.GetComponent<CircleCollider2D>().enabled = false;
         gameObject.GetComponent<SpriteRenderer>().sprite = caja;
+
     }
 
     // Update is called once per frame
