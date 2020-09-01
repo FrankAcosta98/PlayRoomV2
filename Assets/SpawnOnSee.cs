@@ -31,7 +31,9 @@ public class SpawnOnSee : MonoBehaviour
     {
         if (other.name == "Player" && spawned == false)
         {
+            
             GameObject.Instantiate(spin, transform.position, Quaternion.identity);
+            
             spawned = true;
         }
     }

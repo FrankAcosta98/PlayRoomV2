@@ -42,12 +42,6 @@ namespace Pathfinding
             if ((ai != null) && (Vector2.Distance(player.transform.position, gameObject.transform.position) > 2.53f)) ai.destination = player.transform.position;
 
         }
-        void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.name == "Player")
-            {
-                
-            }
-        }
+        
     }
 }

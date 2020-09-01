@@ -5,7 +5,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class spinEffect : MonoBehaviour
 {
-    private GameObject Player;
+    public GameObject Player;
     public Color red;
     public Color blue;
     public Color green;
