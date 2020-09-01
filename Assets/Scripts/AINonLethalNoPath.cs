@@ -46,7 +46,7 @@ namespace Pathfinding
         {
             if (other.name == "Player")
             {
-                Destroy(gameObject, 3f);
+                
             }
         }
     }

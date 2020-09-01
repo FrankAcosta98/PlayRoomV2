@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 7419126398301320501}
   - component: {fileID: 8150770656444088693}
   - component: {fileID: 197824852}
-  - component: {fileID: 197824853}
   - component: {fileID: 197824859}
   - component: {fileID: 197824860}
-  - component: {fileID: 197824861}
+  - component: {fileID: 8390323574520483152}
+  - component: {fileID: 1142476938445184832}
   m_Layer: 0
   m_Name: spin
   m_TagString: Untagged
@@ -4866,20 +4866,6 @@ MonoBehaviour:
   green: {r: 0, g: 0.79607844, b: 0, a: 0.5882353}
   yellow: {r: 0.78823537, g: 0.8, b: 0, a: 0.5882353}
   changeSpeed: 0.015
---- !u!114 &197824853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7419126398301320502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49e65c1aa8dc4624e9fe58cc077e466e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  player: {fileID: 0}
 --- !u!114 &197824859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4931,7 +4917,21 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &197824861
+--- !u!114 &8390323574520483152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419126398301320502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e65c1aa8dc4624e9fe58cc077e466e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  player: {fileID: 6465459872938616774, guid: d6797486a393b0b4e9aec21f088c7375, type: 3}
+--- !u!114 &1142476938445184832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
